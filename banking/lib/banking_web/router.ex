@@ -15,8 +15,6 @@ defmodule BankingWeb.Router do
 
   scope "/", BankingWeb do
     pipe_through :browser
-
-    get "/", PageController, :index
   end
 
   # Other scopes may use custom stacks.
