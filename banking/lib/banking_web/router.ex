@@ -17,10 +17,11 @@ defmodule BankingWeb.Router do
     pipe_through :browser
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", BankingWeb do
-  #   pipe_through :api
-  # end
+   scope "/api", Banking do
+     pipe_through :api
+
+     get "/register", UserController, :register
+   end
 
   # Enables LiveDashboard only for development
   #
