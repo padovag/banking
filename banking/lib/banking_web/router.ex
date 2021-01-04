@@ -21,6 +21,7 @@ defmodule BankingWeb.Router do
      pipe_through :api
 
      get "/register", UserController, :register
+     get "/auth", UserController, :authenticate
    end
 
   # Enables LiveDashboard only for development
