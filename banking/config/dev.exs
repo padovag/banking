@@ -74,3 +74,7 @@ config :phoenix, :stacktrace_depth, 20
 
 # Initialize plugs at runtime for faster development compilation
 config :phoenix, :plug_init_mode, :runtime
+
+config :banking, Banking.TokenManager,
+   issuer: "banking",
+   secret_key: "bFMCKOFI9XosOPUimQZPVWtxxrtJrl1kY4EKigcBc0j8ZwT+BD9Bhq5fjmR+o7Pd"
