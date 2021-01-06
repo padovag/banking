@@ -1,6 +1,10 @@
 defmodule UserControllerTest do
   use BankingWeb.ConnCase
 
+  alias Banking.TokenManager
+  alias Banking.UserRegistration
+  alias Banking.Model.User
+
   test "register user successfully", %{conn: conn} do
     params = %{
       "name" => "Mr. Potato Head",
@@ -10,8 +14,9 @@ defmodule UserControllerTest do
 
     conn = get(conn, "/api/register", params)
 
+    expected_response_body = params |> Map.put("account", %{"balance" => "1000"})
     response_body = json_response(conn, :created)
-    assert params == response_body["data"]
+    assert expected_response_body == response_body["data"]
   end
 
   test "register user with error", %{conn: conn} do
@@ -34,11 +39,13 @@ defmodule UserControllerTest do
       "password" => "correctPassword*123"
     }
     params |> register_user_to_test()
+    expected_token = params |> generate_token()
 
     conn = get(conn, "/api/auth", params)
 
+    expected_response_body = params |> Map.put("token", expected_token)
     response_body = json_response(conn, :accepted)
-    assert params == response_body["data"]
+    assert expected_response_body == response_body["data"]
   end
 
   test "authenticate user with incorrect password, should return unauthorized", %{conn: conn} do
@@ -68,6 +75,14 @@ defmodule UserControllerTest do
   end
 
   defp register_user_to_test(user) do
-    Banking.UserRegistration.register(user)
+    UserRegistration.register(user)
+  end
+
+  defp generate_token(_user = %{"name" => name, "email" => email, "password" => password}) do
+    %User{
+      name: name,
+      email: email,
+      password: password
+    } |> TokenManager.generate_token()
   end
 end
