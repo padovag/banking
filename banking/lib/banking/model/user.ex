@@ -6,6 +6,7 @@ defmodule Banking.Model.User do
     field :email, :string
     field :name, :string
     field :password, :string
+    has_one :account, Banking.Model.Account
 
     timestamps()
   end
@@ -16,7 +17,7 @@ defmodule Banking.Model.User do
     |> cast(attrs, [:name, :email, :password])
     |> validate_required([:name, :email, :password])
     |> validate_format(:email, ~r/@/)
-    |> unique_constraint(:email)
+    |> unique_constraint(:email, name: "users.users_email_index")
   end
 
   def parse_changeset_error(_changeset = %Ecto.Changeset{errors: errors}) do
