@@ -16,11 +16,11 @@ defmodule Banking.UserController do
   end
 
   def authenticate(conn, params = %{"email" => _email, "password" => _password}) do
-    with {:authenticated, user} <- UserAuthentication.authenticate(params) do
+    with {:authenticated, user, token} <- UserAuthentication.authenticate(params) do
       conn
       |> put_view(Banking.ApiView)
       |> put_status(:accepted)
-      |> render(:success, %{data: user})
+      |> render(:success, %{data: user |> Map.put(:token, token)})
     end
   end
 end
