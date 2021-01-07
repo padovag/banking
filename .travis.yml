@@ -14,3 +14,6 @@ env:
     - "MIX_ENV=test"
     - "TEST_DATABASE_USERNAME=travis"
     - "TEST_DATABASE_PASSWORD="
+
+script:
+  - mix do clean, compile --warnings-as-errors, test --exclude skip_on_ci

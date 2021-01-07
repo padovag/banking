@@ -1,6 +1,6 @@
 defmodule Banking.AccountManager do
-  alias Banking.Model.User
   alias Banking.Model.Account
+  alias Banking.Repo
 
   @initial_balance 1000
 
