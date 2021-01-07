@@ -22,6 +22,10 @@ defmodule BankingWeb.Router do
 
      get "/register", UserController, :register
      get "/auth", UserController, :authenticate
+
+     get "/account/withdraw", AccountController, :withdraw
+     get "/account/deposit", AccountController, :deposit
+     get "/account/transfer", AccountController, :transfer
    end
 
   # Enables LiveDashboard only for development

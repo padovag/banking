@@ -1,12 +1,16 @@
 defmodule Banking.AccountManager do
-  alias Banking.Model.Account
-  alias Banking.Repo
+  alias Banking.TransactionReport
 
-  @initial_balance 1000
+  def withdraw(amount, account_from) do
+    TransactionReport.register_withdraw(amount, account_from)
+  end
 
-  def create_account(balance \\ @initial_balance) do
-    Account.changeset(%Account{}, %{balance: balance})
-    |> Repo.insert()
+  def transfer(amount, account_from, account_to) do
+    TransactionReport.register_transfer(amount, account_from, account_to)
+  end
+
+  def deposit(amount, account_to) do
+    TransactionReport.register_deposit(amount, account_to)
   end
 
 end
