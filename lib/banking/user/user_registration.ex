@@ -9,7 +9,7 @@ defmodule Banking.UserRegistration do
   end
 
   defp create_user_with_new_account(changeset = %Ecto.Changeset{valid?: false}, _user), do: {:error, changeset |> User.parse_changeset_error()}
-  defp create_user_with_new_account(%Ecto.Changeset{valid?: true}, user = %{"name" => name, "email" => email, "password" => password}) do
+  defp create_user_with_new_account(%Ecto.Changeset{valid?: true}, _user = %{"name" => name, "email" => email, "password" => password}) do
     account = %Account{balance: "1000"}
 
     %User{

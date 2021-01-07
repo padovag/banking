@@ -1,8 +1,6 @@
 defmodule Banking.ApiView do
   use BankingWeb, :view
 
-  alias Banking.Model.User
-
   def render("success.json", %{data: data}) do
     %{
       status: :success,

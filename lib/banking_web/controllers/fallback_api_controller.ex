@@ -8,7 +8,7 @@ defmodule Banking.FallbackApiController do
     |> render(:error, %{message: error_message})
   end
 
-  def call(conn, {:unauthorized, user}) do
+  def call(conn, {:unauthorized, _user}) do
     conn
     |> put_status(:unauthorized)
     |> put_view(Banking.ApiView)
